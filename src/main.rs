@@ -20,12 +20,12 @@ impl<'e> From<std::io::Error> for ServerError<'e> {
 
 #[derive(Debug)]
 enum HttpMethod {
-    Ok_, // 200
-    NotFound, // 404
+    Ok_,              // 200
+    NotFound,         // 404
     MovedPermanently, // 301
     MovedTemporarily, // 302
-    ServerError, // 500
-    Other(String), // FIXME: this is bad
+    ServerError,      // 500
+    Other(String),    // FIXME: this is bad
 }
 
 impl HttpMethod {
