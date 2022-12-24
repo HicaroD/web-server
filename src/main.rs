@@ -20,22 +20,18 @@ impl<'e> From<std::io::Error> for ServerError<'e> {
 
 #[derive(Debug)]
 enum HttpMethod {
-    Ok_,              // 200
-    NotFound,         // 404
-    MovedPermanently, // 301
-    MovedTemporarily, // 302
-    ServerError,      // 500
-    Other(String),    // FIXME: this is bad
+    GET,
+    POST,
+    PUT,
+    Other(String),
 }
 
 impl HttpMethod {
     fn from_status_code(code: &str) -> Self {
         match code {
-            "200" => Self::Ok_,
-            "404" => Self::NotFound,
-            "301" => Self::MovedPermanently,
-            "302" => Self::MovedTemporarily,
-            "500" => Self::ServerError,
+            "GET" => Self::GET,
+            "POST" => Self::POST,
+            "PUT" => Self::PUT,
             c => Self::Other(c.to_string()),
         }
     }
@@ -109,4 +105,14 @@ fn main() -> Result<(), ServerError<'static>> {
         session.flush()?;
     }
     Ok(())
+}
+
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_http_request_parser() {
+        // TODO(hícaro)
+        assert!(true);
+    }
 }
