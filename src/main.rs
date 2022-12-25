@@ -27,8 +27,8 @@ enum HttpMethod {
 }
 
 impl HttpMethod {
-    fn from_status_code(code: &str) -> Self {
-        match code {
+    fn from_str(method: &str) -> Self {
+        match method {
             "GET" => Self::GET,
             "POST" => Self::POST,
             "PUT" => Self::PUT,
@@ -60,7 +60,7 @@ impl HttpRequest {
         if request_data.len() < 3 {
             return Err(ServerError::ParserError("Response data format is invalid"));
         }
-        let method = HttpMethod::from_status_code(request_data[0]);
+        let method = HttpMethod::from_str(request_data[0]);
         let uri = request_data[1].to_string();
         let version = request_data[2].to_string();
 
